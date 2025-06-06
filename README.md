@@ -20,7 +20,24 @@ A minimalist Instagram UI clone built with **Flutter**. This project focuses on 
 
 ## 📁 Project Structure
 
-##🔧 Requirements
+lib/
+├── main.dart
+├── screens/
+│ └── home_screen.dart
+├── widgets/
+│ ├── story_ring.dart
+│ ├── post_tile.dart
+│ └── app_bar.dart
+├── models/
+│ └── post_model.dart
+└── assets/
+├── images/
+└── icons/
+
+
+---
+
+## 🔧 Requirements
 Flutter SDK (>=3.10.0 recommended)
 Dart SDK
 Android Studio or VSCode with Flutter plugin
