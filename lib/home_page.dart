@@ -29,6 +29,10 @@ class _HomePageState extends State<HomePage> {
     "assets/images/post3.png",
   ];
 
+  Future<void> onRefresh() async {
+    await Future.delayed(Duration(seconds: 3));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,132 +59,186 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Story section
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: profileImages.length,
-                itemBuilder:
-                    (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Story section
+              SizedBox(
+                height: 100,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: profileImages.length,
+                  itemBuilder:
+                      (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Column(
+                          children: [
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 33,
+                                  backgroundImage: AssetImage(
+                                    'assets/images/Story ring.png',
+                                  ),
+                                ),
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage: AssetImage(
+                                    profileImages[index],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              "Profile Name",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                ),
+              ),
+              Divider(),
+              // Posts
+              Column(
+                children: List.generate(
+                  posts.length,
+                  (index) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 33,
-                                backgroundImage: AssetImage(
-                                  'assets/images/Story ring.png',
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 14,
+                                  backgroundImage: AssetImage(
+                                    'assets/images/Story ring.png',
+                                  ),
                                 ),
-                              ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundImage: AssetImage(
-                                  profileImages[index],
+                                CircleAvatar(
+                                  radius: 12,
+                                  backgroundImage: AssetImage(
+                                    profileImages[index],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                          SizedBox(height: 5),
                           Text(
-                            "Profile Name",
+                            'Profile Name',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
                               color: Colors.black87,
                             ),
                           ),
+                          Spacer(),
+                          IconButton(
+                            icon: Icon(Icons.more_vert),
+                            onPressed: () {},
+                          ),
                         ],
                       ),
-                    ),
-              ),
-            ),
-            Divider(),
-            // Posts
-            Column(
-              children: List.generate(
-                posts.length,
-                (index) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 14,
-                                backgroundImage: AssetImage(
-                                  'assets/images/Story ring.png',
-                                ),
-                              ),
-                              CircleAvatar(
-                                radius: 12,
-                                backgroundImage: AssetImage(
-                                  profileImages[index],
-                                ),
-                              ),
-                            ],
-                          ),
+                      SizedBox(
+                        width: double.infinity,
+                        height:
+                            400, // Increase or decrease this value as desired
+                        child: Image.asset(
+                          posts[index],
+                          fit:
+                              BoxFit
+                                  .cover, // Ensures it fills the box proportionally
                         ),
-                        Text(
-                          'Profile Name',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          icon: Icon(Icons.more_vert),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 400, // Increase or decrease this value as desired
-                      child: Image.asset(
-                        posts[index],
-                        fit:
-                            BoxFit
-                                .cover, // Ensures it fills the box proportionally
                       ),
-                    ),
-                    //FOOTER POSTS
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.favorite_border),
-                          onPressed: () {},
-                        ),
+                      //FOOTER POSTS
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.favorite_border),
+                            onPressed: () {},
+                          ),
 
-                        IconButton(
-                          icon: Icon(Icons.chat_bubble_outline),
-                          onPressed: () {},
+                          IconButton(
+                            icon: Icon(Icons.chat_bubble_outline),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.label_outline),
+                            onPressed: () {},
+                          ),
+                          Spacer(),
+                          IconButton(
+                            icon: Icon(Icons.bookmark_border),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                style: TextStyle(color: Colors.black),
+                                children: [
+                                  TextSpan(text: 'Liked by'),
+                                  TextSpan(
+                                    text: ' Profile Name',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(text: ' and '),
+                                  TextSpan(
+                                    text: '102 others',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                style: TextStyle(color: Colors.black),
+                                children: [
+                                  TextSpan(
+                                    text: 'Profile Name',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        ' This is the most amazing picture ever put on Instagram !',
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              'View all 12 comments',
+                              style: TextStyle(color: Colors.black38),
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          icon: Icon(Icons.label_outline),
-                          onPressed: () {},
-                        ),
-                        Spacer(),
-                        IconButton(
-                          icon: Icon(Icons.bookmark_border),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
