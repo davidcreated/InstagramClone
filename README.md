@@ -18,6 +18,15 @@ A minimalist Instagram UI clone built with **Flutter**. This project focuses on 
 
 ---
 
+## 📸 App Demo
+
+
+https://github.com/user-attachments/assets/40531bb1-2879-4195-bf7f-103e7b2e8abf
+
+
+---
+
+
 ## 📁 Project Structure
 
 lib/
@@ -32,6 +41,7 @@ lib/
 │ └── post_model.dart
 └── assets/
 ├── images/
+
 └── icons/
 
 
@@ -55,7 +65,7 @@ Implement user profiles
 ---
 
 
-##👨‍💻 Author
+## 👨‍💻 Author
 Folorunsho-Roberts David
 Flutter Developer | UI/UX Enthusiast
 🔗 GitHub: @folorunsho-roberts
